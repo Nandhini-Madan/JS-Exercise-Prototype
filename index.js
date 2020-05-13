@@ -38,10 +38,43 @@ Airplane.prototype.land = function () {
     - Give instances of Person a method `.toString()`:
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
-
-function Person() {
-
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+  this.stomach = [];
 }
+
+Person.prototype.eat = function(edible) {
+  if (this.stomach.length < 10) {
+    this.stomach.push(edible);
+  } else {
+    console.log("Stomach Full");
+  }
+};
+Person.prototype.poop = function() {
+  this.stomach = [];
+};
+
+Person.prototype.toString = function(name, age) {
+  return `${this.name},${this.age}`;
+};
+const Neo = new Person("Neo", 20);
+Neo.eat("banana");
+Neo.eat("banana");
+Neo.eat("banana");
+Neo.eat("banana");
+Neo.eat("banana");
+Neo.eat("banana");
+Neo.eat("banana");
+Neo.eat("banana");
+Neo.eat("banana");
+Neo.eat("banana");
+Neo.eat("banana");
+Neo.eat("banana");
+Neo.poop();
+
+console.log(Neo);
+
 
 /*
   TASK 2
@@ -57,9 +90,16 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
 
+function Car(model, milesPerGallon) {
+  this.model = model;
+  this.milesPerGallon = milesPerGallon;
+  this.tank = 0;
+  this.odometer = 0;
 }
+Car.prototype.fill = function(gallon) {
+  this.tank += gallon;
+};
 
 /*
   TASK 3
@@ -68,18 +108,26 @@ function Car() {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
-
+function Baby(name, age, favoriteToy) {
+  Person.call(this, name, age);
+  this.favoriteToy = favoriteToy;
+  this.name = name;
+  this.age = age;
 }
+Baby.prototype = Object.create(Person.prototype);
+
+Baby.prototype.play = function() {
+  return `Playing with ${this.favoriteToy}`;
+};
 
 /* 
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. In a method, this refers to the owner object.
+  2. In a function, this refers to the global object.
+  3. Methods like call(), and apply() can refer this to any object.
+  
 */
 
 
